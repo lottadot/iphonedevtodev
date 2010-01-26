@@ -1,0 +1,32 @@
+iphonedevtodev
+=============
+
+iphonedevtodev is a collection of scripts to simplify creating a developer-to-developer iphone-app-distribution.
+
+You can add this script to an iPhone Xcode project as a Run Script build Phase for easy automation.
+
+Adding iphonedevtodev to your project
+====================================
+
+1. Make the build phase. Right-click on your target and select Add > New Build Phase > New Run Script Build Phase. 
+2. In the window that opens up, just put this for the “Script” field (replace '{PATHTOGITPROJECTCLONEINYOURFILESYSTEM}' with 
+the correct path to where you cloned this git repo):
+
+script_file="{PATHTOGITPROJECTCLONEINYOURFILESYSTEM}/devtodevdistribution.sh"
+dist_dirname="dist"
+resign_file="{PATHTOGITPROJECTCLONEINYOURFILESYSTEM}/re-sign.sh"
+
+echo "Running a custom build phase script: $script_file $dist_dirname $resign_file"
+${script_file} "$resign_file" "$dist_dirname"
+scriptExitStatus=$?
+echo "DONE with script: ${script_file} (exitStatus=${scriptExitStatus})\n\n"
+exit "${scriptExitStatus}"
+
+[![](http://dl.dropbox.com/u/212730/iphonedevtodev_setupscreenshot.png)](http://dl.dropbox.com/u/212730/iphonedevtodev_setupscreenshot.png)
+
+3. "Show Environment variables in build log", "Run Script only when installing" should be unchecked.
+
+Change-log
+==========
+Version 0.1 @ 2010-01-26
+- Initial release.
